@@ -27,7 +27,20 @@
 * Creates **.jar** and **MANIFEST.MF** *(build)*
 
 
-* Executes tests with junit from **lib**
+* Executes tests with junit from **lib** (test)
 
 
-* Сhecks diff classes and commit
+* Сhecks diff classes and commit (diff)
+
+
+## Content
+
+* [build.xml](build.xml) - apache net config file
+
+* [build.properties](build.properties) - properties for build.xml
+
+* [lib](lib) - required libraries
+
+* [sounds](sounds) - sounds for build result
+
+* [target](target) - script result
