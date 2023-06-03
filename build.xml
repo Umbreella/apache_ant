@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="lab3_web" default="diff" basedir=".">
+    <property file="build.properties"/>
+
+    <path id="build.classpath">
+        <pathelement
+                location="${repo.local}/jakarta/platform/jakarta.jakartaee-web-api/9.1.0/jakarta.jakartaee-web-api-9.1.0.jar"/>
+        <pathelement location="${repo.local}/jakarta/faces/jakarta.faces-api/3.0.0/jakarta.faces-api-3.0.0.jar"/>
+        <pathelement
+                location="${repo.local}/jakarta/servlet/jakarta.servlet-api/5.0.0/jakarta.servlet-api-5.0.0.jar"/>
+        <pathelement location="${repo.local}/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar"/>
+        <pathelement location="${repo.local}/org/postgresql/postgresql/42.5.1/postgresql-42.5.1.jar"/>
+    </path>
+    <path id="build.test.classpath">
+        <pathelement
+                location="${repo.local}/jakarta/platform/jakarta.jakartaee-web-api/9.1.0/jakarta.jakartaee-web-api-9.1.0.jar"/>
+        <pathelement location="${repo.local}/jakarta/faces/jakarta.faces-api/3.0.0/jakarta.faces-api-3.0.0.jar"/>
+        <pathelement
+                location="${repo.local}/jakarta/servlet/jakarta.servlet-api/5.0.0/jakarta.servlet-api-5.0.0.jar"/>
+        <pathelement
+                location="${repo.local}/org/junit/jupiter/junit-jupiter-api/5.9.1/junit-jupiter-api-5.9.1.jar"/>
+        <pathelement location="${repo.local}/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar"/>
+        <pathelement
+                location="${repo.local}/org/junit/platform/junit-platform-commons/1.9.1/junit-platform-commons-1.9.1.jar"/>
+        <pathelement location="${repo.local}/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar"/>
+        <pathelement
+                location="${repo.local}/org/junit/jupiter/junit-jupiter-engine/5.9.1/junit-jupiter-engine-5.9.1.jar"/>
+        <pathelement
+                location="${repo.local}/org/junit/platform/junit-platform-engine/1.9.1/junit-platform-engine-1.9.1.jar"/>
+        <pathelement location="${repo.local}/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar"/>
+        <pathelement location="${repo.local}/org/postgresql/postgresql/42.5.1/postgresql-42.5.1.jar"/>
+        <pathelement location="${repo.local}/org/checkerframework/checker-qual/3.5.0/checker-qual-3.5.0.jar"/>
+        <fileset dir="${path.lib}" includes="*.jar"/>
+    </path>
+
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+        <classpath>
+            <pathelement location="${path.lib}/ant-contrib-1.0b3.jar"/>
+        </classpath>
+    </taskdef>
+
+    <target name="clear">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="get-deps" depends="clear"
+            description="Download all dependencies"
+            unless="maven.mode.offline">
+        <mkdir dir="${repo.local}"/>
+        <mkdir dir="${repo.local}/jakarta/platform/jakarta.jakartaee-web-api/9.1.0"/>
+        <get src="https://repo.maven.apache.org/maven2/jakarta/platform/jakarta.jakartaee-web-api/9.1.0/jakarta.jakartaee-web-api-9.1.0.jar"
+             dest="${repo.local}/jakarta/platform/jakarta.jakartaee-web-api/9.1.0/jakarta.jakartaee-web-api-9.1.0.jar"
+             usetimestamp="false"
+             ignoreerrors="true"/>
+        <mkdir dir="${repo.local}/jakarta/faces/jakarta.faces-api/3.0.0"/>
+        <get src="https://repo.maven.apache.org/maven2/jakarta/faces/jakarta.faces-api/3.0.0/jakarta.faces-api-3.0.0.jar"
+             dest="${repo.local}/jakarta/faces/jakarta.faces-api/3.0.0/jakarta.faces-api-3.0.0.jar"
+             usetimestamp="false"
+             ignoreerrors="true"/>
+        <mkdir dir="${repo.local}/jakarta/servlet/jakarta.servlet-api/5.0.0"/>
+        <get src="https://repo.maven.apache.org/maven2/jakarta/servlet/jakarta.servlet-api/5.0.0/jakarta.servlet-api-5.0.0.jar"
+             dest="${repo.local}/jakarta/servlet/jakarta.servlet-api/5.0.0/jakarta.servlet-api-5.0.0.jar"
+             usetimestamp="false"
+             ignoreerrors="true"/>
+        <mkdir dir="${repo.local}/org/junit/jupiter/junit-jupiter-api/5.9.1"/>
+        <get src="https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.9.1/junit-jupiter-api-5.9.1.jar"
+             dest="${repo.local}/org/junit/jupiter/junit-jupiter-api/5.9.1/junit-jupiter-api-5.9.1.jar"
+             usetimestamp="false"
+             ignoreerrors="true"/>
+        <mkdir dir="${repo.local}/org/opentest4j/opentest4j/1.2.0"/>
+        <get src="https://repo.maven.apache.org/maven2/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar"
+             dest="${repo.local}/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar"
+             usetimestamp="false"
+             ignoreerrors="true"/>
+        <mkdir dir="${repo.local}/org/junit/platform/junit-platform-commons/1.9.1"/>
+        <get src="https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.9.1/junit-platform-commons-1.9.1.jar"
+             dest="${repo.local}/org/junit/platform/junit-platform-commons/1.9.1/junit-platform-commons-1.9.1.jar"
+             usetimestamp="false"
+             ignoreerrors="true"/>
+        <mkdir dir="${repo.local}/org/apiguardian/apiguardian-api/1.1.2"/>
+        <get src="https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar"
+             dest="${repo.local}/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar"
+             usetimestamp="false"
+             ignoreerrors="true"/>
+        <mkdir dir="${repo.local}/org/junit/jupiter/junit-jupiter-engine/5.9.1"/>
+        <get src="https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-engine/5.9.1/junit-jupiter-engine-5.9.1.jar"
+             dest="${repo.local}/org/junit/jupiter/junit-jupiter-engine/5.9.1/junit-jupiter-engine-5.9.1.jar"
+             usetimestamp="false"
+             ignoreerrors="true"/>
+        <mkdir dir="${repo.local}/org/junit/platform/junit-platform-engine/1.9.1"/>
+        <get src="https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.9.1/junit-platform-engine-1.9.1.jar"
+             dest="${repo.local}/org/junit/platform/junit-platform-engine/1.9.1/junit-platform-engine-1.9.1.jar"
+             usetimestamp="false"
+             ignoreerrors="true"/>
+        <mkdir dir="${repo.local}/org/projectlombok/lombok/1.18.24"/>
+        <get src="https://repo.maven.apache.org/maven2/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar"
+             dest="${repo.local}/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar"
+             usetimestamp="false"
+             ignoreerrors="true"/>
+        <mkdir dir="${repo.local}/org/postgresql/postgresql/42.5.1"/>
+        <get src="https://repo.maven.apache.org/maven2/org/postgresql/postgresql/42.5.1/postgresql-42.5.1.jar"
+             dest="${repo.local}/org/postgresql/postgresql/42.5.1/postgresql-42.5.1.jar"
+             usetimestamp="false"
+             ignoreerrors="true"/>
+        <mkdir dir="${repo.local}/org/checkerframework/checker-qual/3.5.0"/>
+        <get src="https://repo.maven.apache.org/maven2/org/checkerframework/checker-qual/3.5.0/checker-qual-3.5.0.jar"
+             dest="${repo.local}/org/checkerframework/checker-qual/3.5.0/checker-qual-3.5.0.jar"
+             usetimestamp="false"
+             ignoreerrors="true"/>
+    </target>
+
+    <target name="compile" depends="get-deps" description="Compile the code">
+        <mkdir dir="${build.outputDir}"/>
+        <javac destdir="${build.outputDir}">
+            <src>
+                <pathelement location="${build.srcDir.0}"/>
+            </src>
+            <classpath refid="build.classpath"/>
+        </javac>
+
+        <mkdir dir="${build.testOutputDir}"/>
+        <javac destdir="${build.testOutputDir}">
+            <src>
+                <pathelement location="${build.testDir.0}"/>
+            </src>
+            <classpath>
+                <path refid="build.test.classpath"/>
+                <pathelement location="${build.outputDir}"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="build" depends="compile" description="Build main code and tests">
+        <delete file="${build.dir}/${build.finalName}.jar"/>
+
+        <mkdir dir="${build.dir}/${build.finalName}"/>
+        <copy todir="${build.dir}/${build.finalName}">
+            <fileset dir="${build.webappDir}"/>
+        </copy>
+
+        <mkdir dir="${build.dir}/${build.finalName}/WEB-INF/classes"/>
+        <copy todir="${build.dir}/${build.finalName}/WEB-INF/classes">
+            <fileset dir="${build.outputDir}"/>
+        </copy>
+
+        <mkdir dir="${build.dir}/${build.finalName}/WEB-INF/lib"/>
+        <copy file="${repo.local}/org/postgresql/postgresql/42.5.1/postgresql-42.5.1.jar"
+              todir="${build.dir}/${build.finalName}/WEB-INF/lib"/>
+        <copy file="${repo.local}/org/checkerframework/checker-qual/3.5.0/checker-qual-3.5.0.jar"
+              todir="${build.dir}/${build.finalName}/WEB-INF/lib"/>
+
+        <mkdir dir="${build.dir}/${build.finalName}/META-INF"/>
+        <manifest file="${build.dir}/${build.finalName}/META-INF/MANIFEST.MF">
+            <attribute name="Built-By" value="${user.name}"/>
+        </manifest>
+
+        <jar destfile="${build.dir}/${build.finalName}.jar" basedir="${build.dir}/${build.finalName}"
+             manifest="${build.dir}/${build.finalName}/META-INF/MANIFEST.MF"/>
+
+        <war destfile="${build.dir}/${build.finalName}.war" compress="true" webxml="src/main/webapp/WEB-INF/web.xml">
+            <lib dir="${build.dir}/${build.finalName}/WEB-INF/lib"/>
+            <classes dir="${build.outputDir}"/>
+            <fileset dir="${build.webappDir}" excludes="WEB-INF/web.xml"/>
+        </war>
+
+        <sound>
+            <success source="${build.sound.success}"/>
+            <fail source="${build.sound.fail}"/>
+        </sound>
+    </target>
+
+    <target name="test" depends="build">
+        <mkdir dir="${test.reports}"/>
+        <junit printSummary="yes" haltonerror="true" haltonfailure="true" fork="true" dir=".">
+            <formatter type="xml"/>
+            <classpath>
+                <path refid="build.test.classpath"/>
+                <pathelement location="${build.outputDir}"/>
+                <pathelement location="${build.testOutputDir}"/>
+            </classpath>
+            <batchtest todir="${test.reports}">
+                <fileset dir="${build.testDir.0}">
+                    <include name="**/Test*.java"/>
+                    <include name="**/*Test.java"/>
+                    <include name="**/*TestCase.java"/>
+                    <exclude name="**/*Abstract*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+
+        <echo message="--- TEST DONE ---"/>
+    </target>
+
+    <target name="diff" depends="test" if="git.diff.files">
+        <if>
+            <length string="${git.diff.files}" length="0" trim="true" when="greater"/>
+            <then>
+                <exec executable="git" outputproperty="classes.change">
+                    <arg value="diff"/>
+                    <arg value="${git.diff.files}"/>
+                </exec>
+
+                <if>
+                    <length string="${classes.change}" length="0" trim="true" when="greater"/>
+                    <then>
+                        <exec executable="git">
+                            <arg value="add"/>
+                            <arg value="${git.diff.files}"/>
+                        </exec>
+                        <exec executable="git">
+                            <arg value="commit"/>
+                            <arg value="-m"/>
+                            <arg value="New commit"/>
+                        </exec>
+                    </then>
+                    <else>
+                        <echo>No changes in files. Nothing to commit</echo>
+                    </else>
+                </if>
+            </then>
+            <else>
+                <echo>Property "diff.files" is empty.</echo>
+            </else>
+        </if>
+    </target>
+
+</project>
