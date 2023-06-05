@@ -61,6 +61,7 @@
                 location="${repo.local}/com/beust/jcommander/1.82/jcommander-1.82.jar"/>
         <pathelement
                 location="${repo.local}/org/webjars/jquery/3.6.1/jquery-3.6.1.jar"/>
+        <fileset dir="lib" includes="*.jar"/>
     </path>
 
     <!--
