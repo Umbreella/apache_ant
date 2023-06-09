@@ -1,5 +1,0 @@
-Testsuite: area_zone.AreaJUnitTest
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,021 sec
-
-Testcase: test_When_CallCheckAreaDecorate_Should_ReturnFalse took 0,006 sec
-Testcase: test_When_CallCheckArea_Should_ReturnFalse took 0 sec

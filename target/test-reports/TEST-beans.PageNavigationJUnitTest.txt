@@ -1,5 +1,0 @@
-Testsuite: beans.PageNavigationJUnitTest
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,021 sec
-
-Testcase: test_When_CallGoToMain_Should_ReturnGo took 0,006 sec
-Testcase: test_When_CallGoToIndex_Should_ReturnGo took 0 sec
